@@ -1,0 +1,239 @@
+/**
+ * @Fileoverview mixins.less
+ * @Author SeasonLi | season.chopsticks@gmail.com
+ * @Version 1.0 | 2014-11-01 | SeasonLi    // Initial Version
+ **/
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Common mixins: base.
+.cmn-clearfix() {
+  *zoom   : 1;
+  &:after {
+    content     : '\0020';
+    display     : block;
+    height      : 0;
+    font-size   : 0;
+    clear       : both;
+    overflow    : hidden;
+    visibility  : hidden;
+  }
+}
+
+.cmn-inline-block() {
+  display         : -moz-inline-box;
+  -moz-box-orient : vertical;
+  display         : inline-block;
+  *zoom           : 1;
+  *display        : inline;
+}
+
+.cmn-ellipsis() {
+  overflow      : hidden;
+  text-overflow : ellipsis;
+  white-space   : nowrap;
+  word-wrap     : normal;
+}
+
+.cmn-text-wrap() {
+  text-wrap   : wrap;
+  white-space : -moz-pre-wrap;
+  white-space : pre-wrap;
+  word-wrap   : break-word;
+}
+
+.cmn-opacity(@opacity: 0) {
+  filter  : ~'alpha(opacity='@opacity*100~')';
+  opacity : @opacity;
+}
+
+.cmn-min-height(@height: 0) {
+  min-height : @height;
+  height     : auto !important;
+  height     : @height;
+}
+
+.cmn-min-width(@width: 0) {
+  min-width : @width;
+  width     : auto !important;
+  width     : @width;
+}
+
+.cmn-linear-gradient(@gradient){
+  background : -webkit-linear-gradient(@gradient);
+  background : -moz-linear-gradient(@gradient);
+  background : -ms-linear-gradient(@gradient);
+}
+
+.cmn-radial-gradient(@gradient){
+  background : -webkit-radial-gradient(@gradient);
+  background : -moz-radial-gradient(@gradient);
+  background : -ms-radial-gradient(@gradient);
+}
+
+.cmn-user-select(@selectable: none){
+  -moz-user-select    : @selectable;
+  -webkit-user-select : @selectable;
+  -ms-user-select     : @selectable;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Common mixins: font-face, font-icon.
+.cmn-font-smoothing(){
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.cmn-font-face(@fontSrc; @fontWeight: normal; @fontStyle: normal){
+  @filePath: replace(@fontSrc, '^(.*?)(?:\.\w+)?$', '$1');
+  @fileName: replace(@filePath, '^.*?(\w+)$', '$1');
+  
+  @font-face{
+    font-family : 'baikeFont_@{fileName}';
+    src         : url('@{filePath}.eot');
+    src         : url('@{filePath}.eot') format('embedded-opentype'),
+                  url('@{filePath}.woff') format('woff'),
+                  url('@{filePath}.ttf') format('truetype'),
+                  url('@{filePath}.svg') format('svg');
+    font-weight : @fontWeight;
+    font-style  : @fontStyle;
+  }
+}
+
+.cmn-font(@fontSrc; @className){
+  @fontName: replace(@fontSrc, '^.*?(\w+)(?:\.\w+)?$', 'baikeFont_$1');
+
+  .cmn-font-face(@fontSrc);
+  .@{className}{
+    font-family: @fontName;
+  }
+}
+
+._generate-font-icon-class(@className; @iconNames; @i: 1) when(@i < length(@iconNames) + 1){
+  @subClassName: extract(@iconNames, @i);
+  .@{className}_@{subClassName}{
+    @glyph: 599 + @i;
+
+    *zoom: expression(~'this.runtimeStyle["zoom"] = "1", this.innerHTML += "&#xe@{glyph};"');
+    &:before{
+      content: '\e@{glyph}';
+    }
+  }
+  ._generate-font-icon-class(@className; @iconNames; (@i + 1));
+}
+.cmn-font-icon(@fontSrc; @className; @iconNames){
+  .cmn-font(@fontSrc; @className);
+  ._generate-font-icon-class(@className; @iconNames);
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Common mixins: transition.
+.cmn-transition(@transition: 0.4s){
+  -webkit-transition : @transition;
+  transition         : @transition;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Common mixins: transform.
+.cmn-transform(@transform: none){
+  -webkit-transform : @transform;
+  -ms-transform     : @transform;
+  transform         : @transform;
+}
+
+.cmn-transform-style(@transformStyle: preserve-3d){
+  -webkit-transform-style : @transformStyle;
+  transform-style         : @transformStyle;
+}
+
+.cmn-transform-origin(@transformOrigin: center){
+  -webkit-transform-origin : @transformOrigin;
+  -ms-transform-origin     : @transformOrigin;
+  transform-origin         : @transformOrigin;
+}
+
+.cmn-perspective(@perspective: none){
+  -webkit-perspective : @perspective;
+  perspective         : @perspective;
+}
+
+.cmn-perspective-origin(@perspective-origin: center){
+  -webkit-perspective-origin : @perspective-origin;
+  perspective-origin         : @perspective-origin;
+}
+
+.cmn-backface-visibility(@backfaceVisibility: hidden){
+  -webkit-backface-visibility : @backfaceVisibility;
+  backface-visibility         : @backfaceVisibility;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Common mixins: animation.
+.cmn-animation(
+  @name           : none;
+  @duration       : 400ms;
+  @timingFunction : ease;
+  @delay          : 0s;
+  @iterationCount : infinite;
+  @direction      : normal;
+  @fillMode       : none;
+  @playState      : running){
+  -webkit-animation-name            : @name;
+  -webkit-animation-duration        : @duration;
+  -webkit-animation-timing-function : @timingFunction;
+  -webkit-animation-delay           : @delay;
+  -webkit-animation-iteration-count : @iterationCount;
+  -webkit-animation-direction       : @direction;
+  -webkit-animation-fill-mode       : @fillMode;
+  -webkit-animation-play-state      : @playState;
+  
+  animation-name            : @name;
+  animation-duration        : @duration;
+  animation-timing-function : @timingFunction;
+  animation-delay           : @delay;
+  animation-iteration-count : @iterationCount;
+  animation-direction       : @direction;
+  animation-fill-mode       : @fillMode;
+  animation-play-state      : @playState;
+}
+
+.cmn-keyframes(@name; @frames){
+  @-webkit-keyframes ~'@{name}'{
+    @frames();
+  }
+  @keyframes ~'@{name}'{
+    @frames();
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Common mixins: button.
+.cmn-btn(@fontColor; @borderColor; @bgColor: #FFF){
+  .cmn-inline-block;
+  color         : @fontColor;
+  border        : solid 1px @borderColor;
+  border-radius : 2px;
+  background    : @bgColor;
+  text-align    : center;
+  line-height   : 1.5;
+  padding       : 0 4px;
+  &:hover{
+    text-decoration : none;
+    color           : darken(@fontColor, 10%);
+    border          : solid 1px darken(@borderColor, 10%);
+    background      : darken(@bgColor, 4%);
+  }
+  &:focus{
+    outline: 0;
+  }
+  &:active, &.active{
+    color      : lighten(@fontColor, 10%);
+    border     : solid 1px darken(@borderColor, 10%);
+    background : darken(@bgColor, 10%);
+  }
+  &.disabled{
+    color      : #CCC !important;
+    border     : solid 1px #E2E2E2 !important;
+    background : #EFEFEF !important;
+    cursor     : default !important;
+  }
+}

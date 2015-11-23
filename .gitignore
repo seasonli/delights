@@ -1,0 +1,8 @@
+_dev/
+_release/
+dist/
+
+node_modules/
+spm_modules/
+
+.DS_Store
