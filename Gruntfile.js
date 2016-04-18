@@ -185,8 +185,8 @@ module.exports = function (grunt) {
 
     grunt.task.run('clean:release');
     grunt.task.run('htmlbuild:release');
-    grunt.task.run('webpack:common');
-    grunt.task.run('copy:common');
+    // grunt.task.run('webpack:common');
+    // grunt.task.run('copy:common');
     // grunt.task.run('less:common');
     // grunt.task.run('imagemin:common');
     // grunt.task.run('filerev:common');
