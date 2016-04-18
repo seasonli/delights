@@ -1,8 +1,6 @@
-_dev/
-_release/
-dist/
+dev/
+release/
 
 node_modules/
-spm_modules/
 
 .DS_Store

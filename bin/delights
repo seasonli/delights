@@ -1,0 +1,10 @@
+#!/usr/bin/env node
+
+'use strict';
+
+var grunt = require('grunt');
+
+require('../Gruntfile.js')(grunt);
+
+grunt.task.run('release');
+grunt.task.start();
