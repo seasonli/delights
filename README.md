@@ -9,3 +9,12 @@ Delights - 轻量 webapp 开发构建工作流解决方案
 ```
 npm install -g delights
 ```
+
+四条命令
+安装 delights
+```
+delights init // Init delights directory environment
+delights server // Run a local server
+delights dev // Compile source code for develop
+delights release // Compile source code for release
+```

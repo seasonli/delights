@@ -8,6 +8,7 @@
  * @version 1.2 | 2015-02-04 | SeasonLi    // Use imagemin
  * @version 2.0 | 2015-11-22 | SeasonLi    // Strongify build tools
  * @version 3.0 | 2016-03-19 | SeasonLi    // Use webpack
+ * @version 3.1 | 2016-04-21 | SeasonLi    // Import local server
  */
 
 var webpack = require('webpack');
@@ -150,8 +151,7 @@ module.exports = function (grunt) {
       options: {
         keepalive: true
       },
-      common: {
-      }
+      common: {}
     }
   });
 
@@ -171,7 +171,8 @@ module.exports = function (grunt) {
   // Entrance
   // Release
   grunt.task.registerTask('release', function () {
-    var dest = 'release/' + grunt.config.get('pkg.name') + '/' + grunt.config.get('pkg.version') + '/';
+    var dest = 'release/' + grunt.config.get('pkg.name') + '/' + grunt.config
+      .get('pkg.version') + '/';
 
     grunt.config.set('htmlbuild.release.files.0.dest', dest);
     grunt.config.set('webpack.common.output.path', dest + 'static/js/');
@@ -187,7 +188,9 @@ module.exports = function (grunt) {
     grunt.config.set('imagemin.common.files.0.dest', dest);
     grunt.config.set('filerev.common.files.0.cwd', dest);
     grunt.config.set('filerev.common.files.0.dest', dest);
-    grunt.config.set('usemin.options.assetsDirs', [dest + 'static/css/', dest + 'static/js/']);
+    grunt.config.set('usemin.options.assetsDirs', [dest + 'static/css/',
+      dest + 'static/js/'
+    ]);
     grunt.config.set('usemin.common.files.0.cwd', dest);
     grunt.config.set('usemin.common.files.0.dest', dest);
 
@@ -218,7 +221,7 @@ module.exports = function (grunt) {
     // grunt.task.run('less:common');
 
     // if (watch) {
-      grunt.task.run('watch:common');
+    grunt.task.run('watch:common');
     // }
   });
 
