@@ -11,7 +11,6 @@ npm install -g delights
 ```
 
 四条命令
-安装 delights
 ```
 delights init // Init delights directory environment
 delights server // Run a local server
