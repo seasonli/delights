@@ -10,5 +10,5 @@ require('../lib/task.js')(grunt);
 require('../Gruntfile.js')(grunt);
 
 // Do
-grunt.task.run('release');
+grunt.task.run('server');
 grunt.task.start();

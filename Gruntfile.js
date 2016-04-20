@@ -52,7 +52,7 @@ module.exports = function (grunt) {
     webpack: {
       common: {
         entry: {
-          'index': './static/js/index.jsx',
+          'app': './static/js/app.js',
         },
         output: {
           filename: '[name].js',
@@ -145,6 +145,13 @@ module.exports = function (grunt) {
           dest: ''
         }]
       }
+    },
+    connect: {
+      options: {
+        keepalive: true
+      },
+      common: {
+      }
     }
   });
 
@@ -159,6 +166,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-filerev');
   grunt.loadNpmTasks('grunt-usemin');
+  grunt.loadNpmTasks('grunt-contrib-connect');
 
   // Entrance
   // Release
@@ -185,7 +193,7 @@ module.exports = function (grunt) {
 
     grunt.task.run('clean:release');
     grunt.task.run('htmlbuild:release');
-    // grunt.task.run('webpack:common');
+    grunt.task.run('webpack:common');
     // grunt.task.run('copy:common');
     // grunt.task.run('less:common');
     // grunt.task.run('imagemin:common');
@@ -200,13 +208,6 @@ module.exports = function (grunt) {
 
     grunt.config.set('htmlbuild.dev.files.0.dest', dest);
     grunt.config.set('webpack.common.output.path', dest + 'static/js/');
-    grunt.config.set('webpack.common.plugins.0',
-      new webpack.optimize.UglifyJsPlugin({
-        compress: {
-          warnings: false
-        }
-      })
-    );
     grunt.config.set('copy.common.files.0.dest', dest);
     grunt.config.set('less.common.files.0.dest', dest);
 
@@ -216,8 +217,13 @@ module.exports = function (grunt) {
     grunt.task.run('copy:common');
     // grunt.task.run('less:common');
 
-    if (watch) {
+    // if (watch) {
       grunt.task.run('watch:common');
-    }
+    // }
+  });
+
+  // Server
+  grunt.task.registerTask('server', function () {
+    grunt.task.run('connect:common');
   });
 };

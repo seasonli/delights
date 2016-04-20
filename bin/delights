@@ -10,6 +10,7 @@ var program = require('commander');
 program
   .version(pkg.version)
   .command('init', 'Init delights directory environment')
+  .command('server', 'Run a local server')
   .command('dev', 'Compile source code for develop')
   .command('release', 'Compile source code for release')
   .parse(process.argv);
