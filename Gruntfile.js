@@ -13,7 +13,6 @@
 
 var webpack = require('webpack');
 
-
 module.exports = function (grunt) {
   // Grunt tasks config
   grunt.config.init({
@@ -149,12 +148,25 @@ module.exports = function (grunt) {
     },
     connect: {
       options: {
-        keepalive: true
+        port: 8000,
+        keepalive: true,
+        middleware: function (connect, options, defaultMiddleware) {
+          var proxyUtils = require('grunt-connect-proxy/lib/utils.js');
+
+          return [
+            proxyUtils.proxyRequest
+          ].concat(defaultMiddleware);
+        }
       },
-      common: {}
+      server: {},
+      proxies: [{
+        context: '/vis-api.fcgi',
+        host: '10.46.109.53',
+        port: 8181,
+        hideHeaders: true
+      }],
     }
   });
-
 
   // Load npm tasks
   grunt.loadNpmTasks('grunt-contrib-clean');
@@ -167,6 +179,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-filerev');
   grunt.loadNpmTasks('grunt-usemin');
   grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-connect-proxy');
 
   // Entrance
   // Release
@@ -199,15 +212,14 @@ module.exports = function (grunt) {
     grunt.task.run('webpack:common');
     // grunt.task.run('copy:common');
     grunt.task.run('less:common');
-    // grunt.task.run('imagemin:common');
-    // grunt.task.run('filerev:common');
-    // grunt.task.run('usemin:common');
+    grunt.task.run('imagemin:common');
+    grunt.task.run('filerev:common');
+    grunt.task.run('usemin:common');
   });
 
   // Dev
   grunt.task.registerTask('dev', function () {
-    var dest = 'dev/',
-      watch = grunt.option('watch');
+    var dest = 'dev/';
 
     grunt.config.set('htmlbuild.dev.files.0.dest', dest);
     grunt.config.set('webpack.common.output.path', dest + 'static/js/');
@@ -220,13 +232,12 @@ module.exports = function (grunt) {
     grunt.task.run('copy:common');
     grunt.task.run('less:common');
 
-    // if (watch) {
     grunt.task.run('watch:common');
-    // }
   });
 
   // Server
   grunt.task.registerTask('server', function () {
-    grunt.task.run('connect:common');
+    grunt.task.run('configureProxies:server');
+    grunt.task.run('connect:server');
   });
 };
