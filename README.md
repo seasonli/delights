@@ -15,7 +15,7 @@ npm install -g grunt-cli delights
 ### 四条命令
 ```
 delights init // Init delights directory environment
-delights server // Run a local server
-delights dev // Compile source code for develop
-delights release // Compile source code for release
+delights server // Run a local server 在项目目录下启动本地 server
+delights dev // Compile source code for develop 监听文件变动实时编译
+delights release // Compile source code for release 编译上线代码
 ```

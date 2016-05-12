@@ -1,9 +1,10 @@
 {
   "name": "delights",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "author": {
     "name": "SeasonLi @ season.chopsticks@gmail.com"
   },
+  "description": "Delights - 轻量 webapp 开发构建工作流解决方案 @Author SeasonLi | season.chopsticks@gmail.com",
   "repository": {
     "type": "git"
   },
@@ -33,12 +34,11 @@
   "bin": {
     "delights": "bin/delights"
   },
+  "scripts": {},
   "readme": "Delights - 轻量 webapp 开发构建工作流解决方案\n@Author SeasonLi | season.chopsticks@gmail.com\n\n### 现在开始\n\n安装 nodeJS 环境\n\n安装 delights\n```\nnpm install -g delights\n```\n\n四条命令\n```\ndelights init // Init delights directory environment\ndelights server // Run a local server\ndelights dev // Compile source code for develop\ndelights release // Compile source code for release\n```\n",
   "readmeFilename": "README.md",
   "gitHead": "4d61bae5c47789640d120c31f9c02617de97e5ca",
-  "description": "Delights - 轻量 webapp 开发构建工作流解决方案 @Author SeasonLi | season.chopsticks@gmail.com",
   "_id": "delights@0.0.3",
-  "scripts": {},
   "_shasum": "5dfce21b8065e5699f41f2a6cd26eaac971d06ce",
   "_from": "delights@0.0.3"
 }
