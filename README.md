@@ -12,7 +12,11 @@ delights 是基于 grunt 所构建的一个前端工作流的实际解决方案�
 ```
 npm install -g grunt-cli delights
 ```
-### 四条命令
+### 安装项目依赖，项目根目录下执行
+```
+npm install
+```
+### 四条命令，项目根目录下执行
 ```
 delights init // Init delights directory environment
 delights server // Run a local server 在项目目录下启动本地 server
